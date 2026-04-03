@@ -7,12 +7,12 @@
 <h4 align="center">Fast subdomain takeover monitor written in Go</h4>
 
 <p align="center">
+  <a href="#about">About</a> •
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#usage">Usage</a> •
   <a href="#options">Options</a> •
   <a href="#supported-services">Supported Services</a> •
-  <a href="#aws-checks">AWS Checks</a> •
   <a href="#notifications">Notifications</a> •
   <a href="#output">Output</a>
 </p>
@@ -29,7 +29,13 @@
 
 ---
 
-SUBMON is a fast subdomain takeover monitor built in Go. It uses a goroutine worker pool for parallel DNS and HTTP fingerprinting, with AWS-native verification for Elastic Beanstalk and S3 buckets. Designed for security researchers and bug bounty hunters who need reliable, fast results.
+## About
+
+Subdomain takeover is a vulnerability where an attacker can claim a subdomain that still has a live DNS record pointing to a deprovisioned external service. If the original resource (an S3 bucket, Heroku app, GitHub Pages site, etc.) is deleted but the CNAME is left in DNS, anyone can register that resource on the same platform and serve content under the victim's subdomain.
+
+SUBMON automates the detection of these dangling DNS records at scale. It enumerates subdomains using [subfinder](https://github.com/projectdiscovery/subfinder), resolves CNAME chains, fingerprints HTTP responses against known takeover signatures, and performs native AWS CLI verification for Elastic Beanstalk and S3. Results are reported with a confidence level - `CONFIRMED`, `PROBABLE`, or `POSSIBLE` - so you can triage quickly without chasing false positives.
+
+Built for security researchers, bug bounty hunters, and teams who need to monitor their attack surface continuously.
 
 ---
 
@@ -61,7 +67,7 @@ go build -o submon .
 | Tool | Required | Purpose | Install |
 |------|----------|---------|---------|
 | [subfinder](https://github.com/projectdiscovery/subfinder) | Yes | Subdomain enumeration | `go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest` |
-| AWS CLI | Optional | EB and S3 native checks | [docs.aws.amazon.com](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) |
+| [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) | Optional | EB and S3 native checks | [Getting Started Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) |
 | [baddns](https://github.com/blacklanternsecurity/baddns) | Optional | Additional DNS checks | `pip install baddns` |
 
 ---
@@ -154,32 +160,6 @@ go build -o submon .
 | Launchrock | CNAME match + HTTP body fingerprint |
 | Kajabi | CNAME match + HTTP body fingerprint |
 | Strikingly | CNAME match + HTTP body fingerprint |
-
----
-
-## AWS Checks
-
-### Elastic Beanstalk
-
-When a CNAME pointing to `*.elasticbeanstalk.com` is found, SUBMON runs:
-
-```sh
-aws elasticbeanstalk check-dns-availability --region REGION --cname-prefix PREFIX
-```
-
-If `Available: true` is returned, the finding is marked **CONFIRMED** with `AWS Verified`.
-
-### S3
-
-When a CNAME pointing to `*.s3.amazonaws.com` is found, SUBMON runs:
-
-```sh
-aws s3api head-bucket --bucket BUCKET
-```
-
-A `NoSuchBucket` response confirms the bucket is claimable and the finding is marked **CONFIRMED**.
-
-> **Note:** AWS CLI credentials are required for native EB and S3 checks. Without them, SUBMON falls back to HTTP-based fingerprinting.
 
 ---
 
