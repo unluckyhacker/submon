@@ -53,14 +53,6 @@ cd submon
 go build -o submon .
 ```
 
-### Dependencies
-
-| Tool | Required | Purpose | Install |
-|------|----------|---------|---------|
-| [subfinder](https://github.com/projectdiscovery/subfinder) | Yes | Subdomain enumeration | `go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest` |
-| [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) | Optional | EB and S3 native checks | [Getting Started Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) |
-| [baddns](https://github.com/blacklanternsecurity/baddns) | Optional | Additional DNS checks | `pip install baddns` |
-
 ---
 
 ## Usage
