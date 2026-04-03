@@ -31,8 +31,6 @@
 
 ## About
 
-Subdomain takeover is a vulnerability where an attacker can claim a subdomain that still has a live DNS record pointing to a deprovisioned external service. If the original resource (an S3 bucket, Heroku app, GitHub Pages site, etc.) is deleted but the CNAME is left in DNS, anyone can register that resource on the same platform and serve content under the victim's subdomain.
-
 SUBMON automates the detection of these dangling DNS records at scale. It enumerates subdomains using [subfinder](https://github.com/projectdiscovery/subfinder), resolves CNAME chains, fingerprints HTTP responses against known takeover signatures, and performs native AWS CLI verification for Elastic Beanstalk and S3. Results are reported with a confidence level - `CONFIRMED`, `PROBABLE`, or `POSSIBLE` - so you can triage quickly without chasing false positives.
 
 Built for security researchers, bug bounty hunters, and teams who need to monitor their attack surface continuously.
