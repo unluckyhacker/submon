@@ -1,0 +1,6 @@
+submon
+results/
+scan_history.log
+*.log
+.env
+.submon.json
