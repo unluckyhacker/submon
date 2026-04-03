@@ -7,6 +7,10 @@
 <h4 align="center">Fast subdomain takeover monitor written in Go</h4>
 
 <p align="center">
+  <img src="cover.png" alt="SUBMON cover" width="100%"/>
+</p>
+
+<p align="center">
   <a href="#about">About</a> •
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
