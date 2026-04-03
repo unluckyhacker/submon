@@ -1210,7 +1210,7 @@ const htmlTmpl = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SUBMON Report — {{.Domain}}</title>
+<title>SUBMON Report - {{.Domain}}</title>
 <style>
   :root {
     --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
@@ -1366,7 +1366,7 @@ const htmlTmpl = `<!DOCTYPE html>
   </div>
 
   <div class="footer">
-    <span>SUBMON v{{.Version}} — Subdomain Takeover Monitor</span>
+    <span>SUBMON v{{.Version}} - Subdomain Takeover Monitor</span>
     <span>Generated {{.ScanTime}}</span>
   </div>
 </div>
@@ -1668,10 +1668,10 @@ func showBanner() {
 
 	// Centered within 48-char art width:
 	//   "Subdomain Takeover Monitor" (26 chars) → 11 leading spaces
-	//   "Developed by r0h1th"        (19 chars) → 14 leading spaces
+	//   "Developed by claude"         (19 chars) → 14 leading spaces
 	fmt.Println()
 	fmt.Printf("           %sSubdomain Takeover Monitor%s\n", dim, reset)
-	fmt.Printf("              %sDeveloped by r0h1th%s\n", mag, reset)
+	fmt.Printf("              %sDeveloped by claude%s\n", mag, reset)
 	fmt.Println()
 
 	fmt.Printf("  %smode%s  %s%-10s%s  %sworkers%s  %s%-4d%s  %stimeout%s  %s%ds%s\n\n",
