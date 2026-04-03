@@ -48,6 +48,12 @@ Built for security researchers, bug bounty hunters, and teams who need to monito
 ## Installation
 
 ```sh
+go install github.com/unluckyhacker/submon@latest
+```
+
+Or build from source:
+
+```sh
 git clone https://github.com/unluckyhacker/submon
 cd submon
 go build -o submon .
